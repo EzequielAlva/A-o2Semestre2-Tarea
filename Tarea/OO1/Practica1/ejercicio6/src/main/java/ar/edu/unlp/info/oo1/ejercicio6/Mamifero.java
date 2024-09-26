@@ -3,6 +3,7 @@ package ar.edu.unlp.info.oo1.ejercicio6;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Mamifero {
 	 private String identificador;
@@ -10,10 +11,9 @@ public class Mamifero {
 	 private LocalDate fechaNacimiento;
 	 private Mamifero padre;
 	 private Mamifero madre;
-	 private static List<Mamifero> familiares;
 
 	 public Mamifero() {
-		 familiares = new ArrayList<Mamifero>();
+
 	 }
 
 	 public Mamifero(String identificador) {
@@ -51,7 +51,6 @@ public class Mamifero {
 
 	public void setPadre(Mamifero padre) {
 		this.padre = padre;
-		familiares.add(padre);
 	}
 
 public Mamifero getMadre() {
@@ -60,7 +59,6 @@ public Mamifero getMadre() {
 
 public void setMadre(Mamifero madre) {
 	this.madre = madre;
-	familiares.add(madre);
 }
 
 	public Mamifero getAbueloMaterno() {
@@ -104,11 +102,20 @@ public void setMadre(Mamifero madre) {
 	}
  
 	 public boolean tieneComoAncestroA(Mamifero unMamifero) {
-		 Mamifero ancestro = this.familiares.stream()
-				 .filter(familiar -> familiar.getIdentificador().equals(unMamifero.getIdentificador()))
-				 .findFirst()
-				 .orElse(null);
-		 return ancestro != null;
+		 if(unMamifero.equals(this))
+			 return false;
+		 return esAncestro(unMamifero);
+	 }
+
+	 private boolean esAncestro(Mamifero unMamifero) {
+		 boolean aux = false;
+		 if(this.equals(unMamifero))
+			 aux = true;
+		 if(!aux && this.tienePadre())
+			 aux = this.padre.esAncestro(unMamifero);
+		 if(!aux && this.tieneMadre())
+			 aux = this.madre.esAncestro(unMamifero);
+		 return aux;
 	 }
 
 	 private boolean tieneMadre() {
@@ -118,4 +125,17 @@ public void setMadre(Mamifero madre) {
 	 private boolean tienePadre() {
 	 	return this.padre != null;
 	 }
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Mamifero mamifero = (Mamifero) o;
+		return Objects.equals(identificador, mamifero.identificador);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(identificador);
+	}
 }
