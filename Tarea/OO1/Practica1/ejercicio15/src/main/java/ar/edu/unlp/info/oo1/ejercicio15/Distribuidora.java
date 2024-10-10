@@ -7,7 +7,7 @@ public class Distribuidora {
         this.cuadroTarifario = cuadroTarifario;
     }
 
-    public boolean tieneBonificacion(Usuario usuario) {
+    private boolean tieneBonificacion(Usuario usuario) {
         Consumo ultimoConsumo = this.getUltimoConsumo(usuario);
         double fpe = ultimoConsumo.getEnergiaActiva() / (
                 Math.sqrt(
@@ -17,17 +17,17 @@ public class Distribuidora {
         return fpe > 0.8;
     }
 
-    public double calcularBonificacion(Usuario usuario) {
+    private double calcularBonificacion(Usuario usuario) {
         return (tieneBonificacion(usuario)) ? 0.1 : 0;
     }
 
-    public double calculoDeMontoFinal(Usuario usuario) {
+    private double calculoDeMontoFinal(Usuario usuario) {
         Consumo ultimoConsumo = this.getUltimoConsumo(usuario);
         double costoConsumo = this.cuadroTarifario.getPrecioDeKW() * ultimoConsumo.getEnergiaActiva();
         return costoConsumo - costoConsumo * calcularBonificacion(usuario);
     }
 
-    public Consumo getUltimoConsumo(Usuario usuario) {
+    private Consumo getUltimoConsumo(Usuario usuario) {
         return usuario.getListaConsumos().get(usuario.getListaConsumos().size() - 1);
     }
 
