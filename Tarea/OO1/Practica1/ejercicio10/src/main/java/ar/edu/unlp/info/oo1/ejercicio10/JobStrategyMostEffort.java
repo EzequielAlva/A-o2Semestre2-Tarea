@@ -1,11 +1,10 @@
 package ar.edu.unlp.info.oo1.ejercicio10;
 
-import java.util.List;
 
 public class JobStrategyMostEffort extends JobScheduler{
 
-    public JobStrategyMostEffort(List<JobDescription> jobs) {
-        this.jobs = jobs;
+    public JobStrategyMostEffort() {
+
     }
 
     @Override

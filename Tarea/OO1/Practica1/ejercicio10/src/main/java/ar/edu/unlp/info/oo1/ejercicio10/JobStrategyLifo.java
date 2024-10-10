@@ -1,10 +1,8 @@
 package ar.edu.unlp.info.oo1.ejercicio10;
 
-import java.util.List;
-
 public class JobStrategyLifo extends JobScheduler{
-    public JobStrategyLifo(List<JobDescription> jobs) {
-        this.jobs = jobs;
+    public JobStrategyLifo() {
+
     }
 
     @Override

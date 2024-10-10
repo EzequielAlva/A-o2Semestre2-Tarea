@@ -1,11 +1,9 @@
 package ar.edu.unlp.info.oo1.ejercicio10;
 
-import java.util.List;
-
 public class JobStrategyHighestPriority extends JobScheduler{
 
-    public JobStrategyHighestPriority(List<JobDescription> jobs) {
-        this.jobs = jobs;
+    public JobStrategyHighestPriority() {
+
     }
 
     @Override
